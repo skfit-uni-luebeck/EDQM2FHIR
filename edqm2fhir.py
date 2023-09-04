@@ -1,12 +1,18 @@
 import datetime
 import json
 import logging
+import os
 from typing import Dict, List, Tuple
 import click
 import yaml
 from fhir.resources.codesystem import *
 from edqm_api import EdqmApi
 import re
+
+
+def generate_output_filename(output_dir, resource_type, id):
+    filename = f"{resource_type}_{id}.fhir.json"
+    return os.path.join(output_dir, filename)
 
 
 class App:
@@ -66,9 +72,9 @@ class App:
         output_cs.date = self.generated_on
         output_cs.version = self.generated_on.replace("-", "")
         output_cs.copyright = self.fhir_metadata["copyright"]
-        #output_cs.description = self.code_system_settings["description"].replace("<date>", self.generated_on)
+        output_cs.description = self.code_system_settings["description"].replace("<date>", self.generated_on)
         output_cs.property = self.__cs_generate_properties()
-        #output_cs.concept = fhir_concepts
+        output_cs.concept = fhir_concepts
         return output_cs
 
     def create_value_sets(self):
@@ -183,6 +189,8 @@ class App:
         return generated_url
 
     def __cs_generate_properties(self):
+        # TODO implement:
+        # domain, class, creation_date, modification_date, links (with sub-codes)
         return []
 
 
@@ -202,14 +210,24 @@ class App:
               multiple=True,
               default=["all"]
               )
+@click.option("--output", "-o",
+              required=True,
+              default="output")
 def convert(
         username: str,
         api_key: str,
         metadata_file: str,
-        designation: Tuple[str]
+        designation: Tuple[str],
+        output: str
 ):
     app = App(username, api_key, metadata_file, [d for d in designation])
-    app.create_code_system()
+    if not os.path.isdir(output):
+        os.mkdir(output)
+        logging.info("Created output dir %s", os.path.abspath(output))
+    cs = app.create_code_system()
+    with open(generate_output_filename(os.path.abspath(output), "CodeSystem", cs.id), "w") as of:
+        of.write(cs.json(indent=2))
+
     app.create_value_sets()
 
 
