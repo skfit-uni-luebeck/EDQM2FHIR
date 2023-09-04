@@ -1,0 +1,89 @@
+fhir_metadata:
+  copyright: >-
+    This resource contains data from the EDQM Standard Terms Database
+    (https://standardterms.edqm.eu) and is reproduced with the
+    permission of the European Directorate for the Quality of
+    Medicines & HealthCare, Council of Europe (EDQM).
+  url_template: "http://standardterms.edqm.eu/fhir/<resource_type>/<id_slug>"
+  identifier_systems:
+    oid:
+      system: "urn:ietf:rfc:3986"
+      prefix: "urn:oid:"
+
+code_system:
+    title: "EDQM Standard Terms"
+    oid: "0.4.0.127.0.16.1.1.2.1"
+    description: >-
+      This CodeSystem contains all terms from the EDQM Standard Terms.
+      This resource was generated on <date>.
+    properties:
+      domain:
+        description: ""
+      class:
+        description: ""
+      creation_date:
+        description: ""
+      modification_date:
+        description: ""
+      links:
+        description: ""
+
+value_sets:
+  description: >-
+    This ValueSet contains terms from the '%s' hierarchy of the
+    EDQM Standard Terms database, and was generated on %s.
+  definitions:
+    "Pharmaceutical dose forms":
+      oid: "0.4.0.127.0.16.1.1.2.2"
+      class: PDF
+    "Combined pharmaceutical dose forms":
+      oid: "0.4.0.127.0.16.1.1.2.3"
+      class: CDF
+    "Combined terms":
+      oid: "0.4.0.127.0.16.1.1.2.4"
+      class: CMT
+    "Combination packs":
+      oid: "0.4.0.127.0.16.1.1.2.5"
+      class: CMP
+    "Routes and methods of administration":
+      oid: "0.4.0.127.0.16.1.1.2.6"
+      class: ROA
+    "Packaging (all)":
+      oid: "0.4.0.127.0.16.1.1.2.7"
+      class: PAC
+    "Containers":
+      oid: "0.4.0.127.0.16.1.1.2.8"
+      class: CON
+    "Closures":
+      oid: "0.4.0.127.0.16.1.1.2.9"
+      class: CLO
+    "Administration devices":
+      oid: "0.4.0.127.0.16.1.1.2.10"
+      class: DEV
+    "Units of presentation":
+      oid: "0.4.0.127.0.16.1.1.2.11"
+      class: UOP
+    "Patient-friendly terms":
+      oid: "0.4.0.127.0.16.1.1.2.12"
+      class: PFT
+    "State of matter":
+      oid: "0.4.0.127.0.16.1.1.2.13"
+      class: SOM
+    "Basic dose form":
+      oid: "0.4.0.127.0.16.1.1.2.14"
+      class: BDF
+    "Administration method":
+      oid: "0.4.0.127.0.16.1.1.2.15"
+      class: AME
+    "Intended site":
+      oid: "0.4.0.127.0.16.1.1.2.16"
+      class: ISI
+    "Release characteristics":
+      oid: "0.4.0.127.0.16.1.1.2.17"
+      class: RCA
+    "Transformation":
+      oid: "0.4.0.127.0.16.1.1.2.18"
+      class: TRA
+    "Mapped terms":
+      oid: "0.4.0.127.0.16.1.1.2.26"
+      class: MAP
