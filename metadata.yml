@@ -4,34 +4,60 @@ fhir_metadata:
     (https://standardterms.edqm.eu) and is reproduced with the
     permission of the European Directorate for the Quality of
     Medicines & HealthCare, Council of Europe (EDQM).
-  url_template: "http://standardterms.edqm.eu/fhir/<resource_type>/<id_slug>"
+  publisher: European Directorate for the Quality of Medicines & HealthCare, Council of Europe (EDQM)
+  url_template: "http://standardterms.edqm.eu/fhir/<$resource_type$>/<$id_slug$>"
+  div_template: "<div lang=\"en\" xmlns=\"http://www.w3.org/1999/xhtml\"><h2><$title$></h2><tt><$canonical$></tt><p><$description$></p></div>"
   identifier_systems:
     oid:
       system: "urn:ietf:rfc:3986"
       prefix: "urn:oid:"
 
-code_system:
-    title: "EDQM Standard Terms"
-    oid: "0.4.0.127.0.16.1.1.2.1"
-    description: >-
-      This CodeSystem contains all terms from the EDQM Standard Terms.
-      This resource was generated on <date>.
-    properties:
-      domain:
-        description: ""
-      class:
-        description: ""
-      creation_date:
-        description: ""
-      modification_date:
-        description: ""
-      links:
-        description: ""
+code_systems:
+    profiles:
+      - http://hl7.org/fhir/StructureDefinition/shareablecodesystem
+    concept_classes:
+        title: "EDQM Standard Terms Classes"
+        description: >-
+          This CodeSystem contains all classes of the EDQM Standard Terms.
+          It was generated from the API endpoint '/classes' on <$date$>.
+    all_codes:
+      title: "EDQM Standard Terms"
+      oid: "0.4.0.127.0.16.1.1.2.1"
+      description: >-
+        This CodeSystem contains all terms from the EDQM Standard Terms.
+        This resource was generated on <$date$>.
+      properties:
+        domain:
+          description: >-
+            The domain this concept belongs to, one of: 
+            [Human and Veterinary, Veterinary only].
+          type: string
+        status:
+          description: >-
+            The status of the concept according to the EDQM API, one of:
+            [Current, Deprecated, Pending, Rejected]. All values other
+            than 'Current' will be mapped to `inactive=true` also.
+          type: code
+          uri: http://hl7.org/fhir/concept-properties#status
+        concept_class:
+          description: >-
+            The class of the concept according to the EDQM concept model,
+            linking to a generated CodeSystem.
+          type: Coding
+        creation_date:
+          description: "The date this concept was first released"
+          type: dateTime
+        modification_date:
+          description: "The last date of modification to this concept"
+          type: dateTime
+#        link:
+#          description: "A link to another concept within the EDQM"
+#          type: code
 
 value_sets:
   description: >-
-    This ValueSet contains terms from the '%s' hierarchy of the
-    EDQM Standard Terms database, and was generated on %s.
+    This ValueSet contains terms from the '<$title$>' hierarchy of the
+    EDQM Standard Terms database, and was generated on <$date$>.
   definitions:
     "Pharmaceutical dose forms":
       oid: "0.4.0.127.0.16.1.1.2.2"
