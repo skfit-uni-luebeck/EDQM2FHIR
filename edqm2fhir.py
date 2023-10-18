@@ -1,6 +1,5 @@
 import logging
 import os
-import pathlib
 from typing import Tuple
 import click
 from fhir.resources.codesystem import CodeSystem
@@ -21,7 +20,7 @@ def __write_file(resource: CodeSystem | ValueSet, output_dir: str):
     filename = __generate_output_filename(output_dir, resource.resource_type, resource.id)
     logging.info(f"Writing {resource.resource_type} file to {os.path.abspath(filename)}")
     with open(filename, "w") as of:
-        of.write(resource.json(indent=2))
+        of.write(resource.json(indent=2, ensure_ascii=False))
 
 
 @click.command(epilog="You can also provide arguments via environment variables, e.g. EDQM2FHIR_API_KEY and so on.")
@@ -36,10 +35,11 @@ def __write_file(resource: CodeSystem | ValueSet, output_dir: str):
 @click.option("--metadata-file",
               required=True,
               default="./metadata.yml")
-@click.option("--designation", "-d",
+@click.option("--designation-languages", "-d",
               multiple=True,
               default=["all"]
               )
+@click.option("--vs-designations/--no-vs-designations", default=True)
 @click.option("--output", "-o", "output_dir",
               required=True,
               default="output")
@@ -47,16 +47,21 @@ def convert(
         username: str,
         api_key: str,
         metadata_file: str,
-        designation: Tuple[str],
+        designation_languages: Tuple[str],
+        vs_designations: bool,
         output_dir: str
 ):
-    app = App(username, api_key, metadata_file, [d for d in designation])
+    app = App(username=username,
+              password=api_key,
+              metadata_file=metadata_file,
+              designation_languages=[d for d in designation_languages],
+              vs_designations=vs_designations)
     ccs = app.generate_class_code_system()
     __write_file(ccs, output_dir)
     cs = app.create_code_system()
     __write_file(cs, output_dir)
 
-    vss = app.create_value_sets()
+    vss = app.create_value_sets(code_system=cs)
     for vs in vss:
         __write_file(vs, output_dir)
 

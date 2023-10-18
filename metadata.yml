@@ -56,8 +56,9 @@ code_systems:
 
 value_sets:
   description: >-
-    This ValueSet contains terms from the '<$title$>' hierarchy of the
+    This ValueSet contains terms from the '<$title$>' (code: '<$class_code$>') hierarchy of the
     EDQM Standard Terms database, and was generated on <$date$>.
+  title_template: "EDQM - <$vs_name$>"
   definitions:
     "Pharmaceutical dose forms":
       oid: "0.4.0.127.0.16.1.1.2.2"
