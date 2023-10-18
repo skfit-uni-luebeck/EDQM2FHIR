@@ -31,8 +31,8 @@ class EdqmApi:
                         host: str = "standardterms.edqm.eu",
                         protocol: str = "https",
                         url_prefix: str | None = "/standardterms/api/v1"):
-        rel_url = f"/{url_prefix.strip('/')}/{url.lstrip('/')}" # the URL reletive to the host, anchored to /
-        request_url = f"{protocol}://{host}/{rel_url.lstrip('/')}" # the full URL of the service
+        rel_url = f"/{url_prefix.strip('/')}/{url.lstrip('/')}"  # the URL reletive to the host, anchored to /
+        request_url = f"{protocol}://{host}/{rel_url.lstrip('/')}"  # the full URL of the service
         logging.debug("Requesting: %s %s", method, request_url)
         headers = self.header_builder.generate_headers(rel_url, method, host=host)
         prepped = requests.Request(method=str(method), url=request_url, headers=headers).prepare()

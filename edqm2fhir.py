@@ -52,7 +52,7 @@ def convert(
         output_dir: str
 ):
     app = App(username=username,
-              password=api_key,
+              api_key=api_key,
               metadata_file=metadata_file,
               designation_languages=[d for d in designation_languages],
               vs_designations=vs_designations)

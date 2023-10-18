@@ -45,8 +45,8 @@ class App:
     concept_classes: List[CodeSystemConcept] | None
     version: str
 
-    def __init__(self, username, password, metadata_file, designation_languages, vs_designations):
-        self.edqm_api = EdqmApi(username, password)
+    def __init__(self, username, api_key, metadata_file, designation_languages, vs_designations):
+        self.edqm_api = EdqmApi(username, api_key)
         self.metadata_file = metadata_file
         self.designation_languages = designation_languages
         self.vs_designations = vs_designations
